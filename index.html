@@ -1,0 +1,903 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdullaah Yaseen — Cybersecurity Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#111111;--bg2:#1a1a1a;--accent:#ff6600;--accent-dark:#cc5200;
+  --text:#e0e0e0;--muted:#888888;
+  --mono:'Share Tech Mono',monospace;--body:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;width:100%;z-index:1000;
+  background:rgba(17,17,17,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,102,0,.18);
+  height:62px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 2.5rem;
+}
+.nav-logo{font-family:var(--mono);font-size:1.05rem;color:var(--text);text-decoration:none;letter-spacing:1px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s;letter-spacing:.5px}
+.nav-links a:hover{color:var(--accent)}
+.nav-social{display:flex;gap:1.1rem;align-items:center}
+.nav-social a{color:var(--muted);display:flex;align-items:center;transition:color .2s}
+.nav-social a:hover{color:var(--accent)}
+.icon{width:19px;height:19px;fill:currentColor}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:22px;height:2px;background:var(--text);transition:all .3s;display:block}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.mobile-menu{
+  display:none;position:fixed;top:62px;left:0;right:0;z-index:999;
+  background:rgba(17,17,17,.98);border-bottom:1px solid rgba(255,102,0,.18);
+  padding:2rem 2.5rem;
+}
+.mobile-menu.open{display:block}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem}
+.mobile-menu a{font-family:var(--mono);font-size:1rem;color:var(--text);text-decoration:none}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-social{display:flex;gap:1.2rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,102,0,.12)}
+.mobile-social a{color:var(--muted)}
+.mobile-social a:hover{color:var(--accent)}
+
+/* ── LAYOUT WRAPPER ── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 2rem}
+
+/* ── SECTION HEADER ── */
+.sec-head{
+  font-family:var(--mono);font-size:1.35rem;color:var(--text);
+  margin-bottom:2.5rem;display:flex;align-items:center;gap:1rem;
+}
+.sec-head .sl{color:var(--accent)}
+.sec-head::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(255,102,0,.5),transparent)}
+
+/* ── FADE-IN ── */
+.fi{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fi.vis{opacity:1;transform:none}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;padding-top:62px;
+  display:flex;align-items:center;
+}
+#hero .wrap{width:100%}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:4rem 0}
+
+/* dot matrix */
+.dm-wrap{display:flex;flex-direction:column;align-items:center;gap:.9rem;justify-self:center}
+.dm-label{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:2px;opacity:.8}
+#dotMatrix{display:block}
+.d.dim{background:var(--accent-dark);opacity:.4}
+
+/* hero text */
+.hero-pre{font-family:var(--mono);color:var(--accent);font-size:.88rem;letter-spacing:2px;margin-bottom:.7rem}
+.hero-name{font-size:clamp(2rem,5vw,3.4rem);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:1rem}
+.blink::after{content:'█';color:var(--accent);animation:blink 1.1s step-start infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-tag{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:1.5rem;max-width:460px}
+.hero-tag strong{color:var(--text)}
+.hero-loc{font-family:var(--mono);font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:.5rem;margin-bottom:1.8rem}
+.hero-loc::before{content:'▸';color:var(--accent)}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:.82rem;padding:.65rem 1.5rem;
+  border:1px solid var(--accent);background:transparent;color:var(--accent);
+  text-decoration:none;cursor:pointer;transition:all .2s;letter-spacing:.8px;display:inline-block;
+}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn-fill{background:var(--accent);color:var(--bg)}
+.btn-fill:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+
+/* ── ABOUT ── */
+#about{padding:6rem 0}
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:3.5rem;align-items:start;margin-bottom:3rem}
+.about-bio p{color:var(--muted);font-size:.97rem;line-height:1.85;margin-bottom:1rem}
+.about-bio p strong{color:var(--text)}
+.photo-box{
+  border:1px solid rgba(255,102,0,.25);background:var(--bg2);
+  aspect-ratio:3/4;max-height:340px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
+  position:relative;overflow:hidden;
+}
+.photo-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+.photo-box-icon{font-size:2.5rem;opacity:.25;color:var(--accent)}
+.photo-box-txt{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:1px}
+.skills-lbl{font-family:var(--mono);font-size:.82rem;color:var(--accent);letter-spacing:2px;margin-bottom:1.1rem}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem 2.5rem}
+.sk{font-family:var(--mono);font-size:.83rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.sk::before{content:'▸';color:var(--accent);font-size:.75rem}
+
+/* ── EXPERIENCE ── */
+#experience{padding:6rem 0}
+.exp-layout{display:grid;grid-template-columns:210px 1fr;border:1px solid rgba(255,102,0,.14)}
+.exp-tabs{border-right:1px solid rgba(255,102,0,.14);display:flex;flex-direction:column}
+.exp-tab{
+  padding:1.15rem 1.4rem;font-family:var(--mono);font-size:.78rem;color:var(--muted);
+  cursor:pointer;border-left:3px solid transparent;transition:all .2s;
+  border-bottom:1px solid rgba(255,102,0,.08);letter-spacing:.4px;
+}
+.exp-tab:last-child{border-bottom:none}
+.exp-tab:hover{color:var(--text);background:rgba(255,102,0,.04)}
+.exp-tab.on{color:var(--accent);border-left-color:var(--accent);background:rgba(255,102,0,.07)}
+.exp-panel{display:none;padding:2rem 2.4rem}
+.exp-panel.on{display:block}
+.exp-title{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:.3rem}
+.exp-title em{color:var(--accent);font-style:normal}
+.exp-date{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:1.4rem;letter-spacing:.4px}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.exp-list li{color:var(--muted);font-size:.94rem;line-height:1.7;padding-left:1.2rem;position:relative}
+.exp-list li::before{content:'▸';color:var(--accent);position:absolute;left:0;font-size:.78rem;top:.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.4rem}
+.tag{font-family:var(--mono);font-size:.7rem;padding:.22rem .65rem;border:1px solid rgba(255,102,0,.28);color:var(--accent);letter-spacing:.4px}
+
+/* ── PROJECTS ── */
+#projects{padding:6rem 0}
+.feat{
+  border:1px solid rgba(255,102,0,.28);background:var(--bg2);
+  padding:2.4rem;margin-bottom:3rem;position:relative;overflow:hidden;
+  transition:border-color .3s,box-shadow .3s;
+}
+.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
+.feat:hover{border-color:var(--accent);box-shadow:0 0 35px rgba(255,102,0,.1)}
+.feat-lbl{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:3px;margin-bottom:1rem}
+.feat-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.feat-name{font-size:1.75rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
+.feat-name em{color:var(--accent);font-style:normal}
+.feat-sub{font-family:var(--mono);font-size:.78rem;color:var(--accent);letter-spacing:1px;margin-bottom:1rem}
+.feat-desc{color:var(--muted);font-size:.94rem;line-height:1.75;margin-bottom:1.4rem}
+.term{
+  background:var(--bg);border:1px solid rgba(255,102,0,.18);
+  padding:1.4rem;font-family:var(--mono);font-size:.73rem;line-height:1.9;
+}
+.term-line{display:flex;gap:.8rem;align-items:baseline}
+.t-prompt{color:var(--muted)}
+.t-cmd{color:var(--text)}
+.t-ok{color:var(--accent)}
+.t-warn{color:#ff4444}
+.t-dim{color:var(--muted)}
+
+.filter-bar{display:flex;gap:.5rem;margin-bottom:1.8rem;flex-wrap:wrap}
+.filt{
+  font-family:var(--mono);font-size:.76rem;padding:.38rem .95rem;
+  border:1px solid rgba(255,102,0,.22);background:transparent;color:var(--muted);
+  cursor:pointer;transition:all .2s;letter-spacing:.8px;
+}
+.filt:hover{color:var(--text);border-color:rgba(255,102,0,.5)}
+.filt.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.pc{
+  border:1px solid rgba(255,102,0,.13);background:var(--bg2);
+  padding:1.45rem;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .25s;
+  text-decoration:none;display:flex;flex-direction:column;
+}
+.pc::before{
+  content:'';position:absolute;top:0;left:-100%;right:100%;
+  height:2px;background:var(--accent);transition:left .4s ease,right .4s ease;
+}
+.pc:hover::before{left:0;right:0}
+.pc:hover{border-color:rgba(255,102,0,.4);transform:translateY(-3px)}
+.pc.hide{display:none}
+.pc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.7rem}
+.pc-ico{color:var(--accent);font-size:1.2rem;line-height:1}
+.pc-ext{color:var(--muted);font-size:.9rem;transition:color .2s}
+.pc:hover .pc-ext{color:var(--accent)}
+.pc-name{font-size:.98rem;font-weight:600;color:var(--text);margin-bottom:.45rem}
+.pc-desc{font-size:.84rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:.9rem}
+.pc-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.pc-tag{font-family:var(--mono);font-size:.69rem;color:var(--muted)}
+.pc-tag::before{content:'#';color:var(--accent)}
+
+/* ── CONTACT ── */
+#fitness{padding:6rem 0}
+#contact{padding:6rem 0}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-hed{font-size:1.45rem;font-weight:600;color:var(--text);margin-bottom:.9rem}
+.contact-hed em{color:var(--accent);font-style:normal}
+.contact-body{color:var(--muted);font-size:.95rem;line-height:1.8}
+.contact-note{font-family:var(--mono);font-size:.78rem;color:var(--accent);margin-top:1.2rem}
+.clink-list{display:flex;flex-direction:column;gap:.9rem}
+.clink{
+  display:flex;align-items:center;gap:1.4rem;text-decoration:none;
+  padding:.95rem 1.4rem;border:1px solid rgba(255,102,0,.14);background:var(--bg2);
+  transition:all .22s;
+}
+.clink:hover{border-color:var(--accent);background:rgba(255,102,0,.05);transform:translateX(5px)}
+.clink-num{font-family:var(--mono);font-size:.73rem;color:var(--accent);min-width:22px}
+.clink-info{flex:1}
+.clink-lbl{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.8px}
+.clink-val{font-size:.93rem;color:var(--text);margin-top:.15rem}
+.clink-arr{color:var(--muted);transition:color .2s,transform .2s;font-size:.95rem}
+.clink:hover .clink-arr{color:var(--accent);transform:translateX(3px)}
+
+/* ── RESUME BUTTON ── */
+.nav-resume-btn{
+  font-family:var(--mono);font-size:.75rem;padding:.35rem .95rem;
+  border:1px solid var(--accent);color:var(--accent);text-decoration:none;
+  transition:all .2s;letter-spacing:.6px;white-space:nowrap;cursor:pointer;
+  background:transparent;
+}
+.nav-resume-btn:hover{background:var(--accent);color:var(--bg)}
+.exp-resume-row{padding:1.2rem 2.4rem 1.8rem;border-top:1px solid rgba(255,102,0,.1)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid rgba(255,102,0,.13);padding:1.8rem 2.5rem}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.foot-copy{font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.foot-copy em{color:var(--accent);font-style:normal}
+.foot-made{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.foot-made em{color:var(--accent);font-style:normal}
+
+/* ── RESPONSIVE ── */
+@media(max-width:920px){
+  .nav-links,.nav-social,.nav-resume-btn{display:none}
+  .hamburger{display:flex}
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:2.5rem;padding:3rem 0}
+  .dm-wrap{margin:0 auto}
+  .hero-tag,.cta-row,.hero-loc{margin-left:auto;margin-right:auto;justify-content:center}
+  .about-grid{grid-template-columns:1fr}
+  .photo-box{aspect-ratio:16/9;max-height:220px}
+  .exp-layout{grid-template-columns:1fr}
+  .exp-tabs{flex-direction:row;border-right:none;border-bottom:1px solid rgba(255,102,0,.14);overflow-x:auto}
+  .exp-tab{border-left:none;border-bottom:3px solid transparent;padding:.9rem 1rem;white-space:nowrap}
+  .exp-tab.on{border-left:none;border-bottom-color:var(--accent)}
+  .feat-inner{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .foot-inner{justify-content:center;text-align:center}
+}
+@media(max-width:560px){
+  .proj-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+  nav{padding:0 1.2rem}
+  .wrap{padding:0 1.2rem}
+  #about,#experience,#projects,#contact{padding:4rem 0}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">AY<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-social">
+    <a href="https://github.com/abdullaah019" target="_blank" rel="noopener" title="GitHub">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/abdullaahyaseen" target="_blank" rel="noopener" title="LinkedIn">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="mailto:abdullaahyaseen@gmail.com" title="Email">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+    </a>
+  </div>
+  <button class="nav-resume-btn" onclick="openResume()">view resume</button>
+  <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobMenu">
+  <ul>
+    <li><a href="#about" onclick="closeMenu()">/ about</a></li>
+    <li><a href="#experience" onclick="closeMenu()">/ experience</a></li>
+    <li><a href="#projects" onclick="closeMenu()">/ projects</a></li>
+    <li><a href="#contact" onclick="closeMenu()">/ contact</a></li>
+    <li><a href="#" onclick="closeMenu();openResume();return false">/ view resume</a></li>
+  </ul>
+  <div class="mobile-social">
+    <a href="https://github.com/abdullaah019" target="_blank" rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a href="mailto:abdullaahyaseen@gmail.com">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="dm-wrap fi">
+        <div class="dm-label">[ portrait.matrix ]</div>
+        <canvas id="dotMatrix" style="display:block"></canvas>
+        <div class="dm-label" style="font-size:.62rem;opacity:.45;margin-top:.3rem">ABDULLAAH_YASEEN.EXE</div>
+      </div>
+      <div class="fi" style="transition-delay:.15s">
+        <div class="hero-pre">// hello, world</div>
+        <h1 class="hero-name blink">Abdullaah<br>Yaseen</h1>
+        <p class="hero-tag">
+          <strong>Cybersecurity engineer</strong> and founder. Building
+          <strong>AI-powered SOC tools</strong> for SMBs. Ex-college DB.
+          Currently building <strong>ARIA</strong>.
+        </p>
+        <div class="hero-loc">Phoenix, AZ</div>
+        <div class="cta-row">
+          <a href="#projects" class="btn btn-fill">view projects</a>
+          <a href="#contact" class="btn">get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head fi"><span class="sl">/</span> about me</div>
+    <div class="about-grid fi">
+      <div class="about-bio">
+        <p>I'm a <strong>cybersecurity engineer and founder</strong> based in Phoenix, AZ. I build detection systems, agentic AI tools, and full-stack applications — with a focus on making enterprise-grade security accessible to small and mid-sized businesses.</p>
+        <p>My flagship project, <strong>ARIA</strong>, is an autonomous SOC pipeline that polls Microsoft Sentinel, triages alerts with AI, maps threats to MITRE ATT&amp;CK, and automates responses via Microsoft Defender — all aligned to NIST CSF 2.0.</p>
+        <p>Before going independent, I sharpened my skills at <strong>The Cyber Range</strong>, where I built agentic AI SOC systems and ran threat hunting operations targeting TOR traffic, brute-force attacks, and malware infections. I also shipped BBM Cleaning's production site and the Tote4Rent rental platform.</p>
+        <p>When I'm not in the terminal, I'm thinking about how AI can close the security gap for organizations that can't afford a full SOC team.</p>
+      </div>
+      <div class="photo-box" style="padding:0">
+        <img src="photo.png" alt="Abdullaah Yaseen" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:grayscale(20%) contrast(1.05)">
+      </div>
+    </div>
+    <div class="fi" style="transition-delay:.1s">
+      <div class="skills-lbl">// tech stack</div>
+      <div class="skills-grid">
+        <div class="sk">Microsoft Sentinel</div>
+        <div class="sk">NIST CSF 2.0</div>
+        <div class="sk">Python</div>
+        <div class="sk">Threat Hunting</div>
+        <div class="sk">Microsoft Defender</div>
+        <div class="sk">Splunk / SPL</div>
+        <div class="sk">Next.js / React</div>
+        <div class="sk">Azure / KQL</div>
+        <div class="sk">MITRE ATT&amp;CK</div>
+        <div class="sk">PowerShell</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head fi"><span class="sl">/</span> experience</div>
+    <div class="exp-layout fi">
+      <div class="exp-tabs">
+        <div class="exp-tab on" data-tab="ciso">CISO Global</div>
+        <div class="exp-tab" data-tab="yaseen">Yaseen Enterprise</div>
+        <div class="exp-tab" data-tab="cyber">The Cyber Range</div>
+        <div class="exp-tab" data-tab="free">Freelance Dev</div>
+      </div>
+      <div class="exp-panel on" id="tab-ciso">
+        <div class="exp-title">SOC Analyst <em>@ CISO Global</em></div>
+        <div class="exp-date">March 2026 — Present &nbsp;·&nbsp; Scottsdale, AZ</div>
+        <ul class="exp-list">
+          <li>Investigate identity-based alerts using Microsoft Sentinel, focusing on login anomalies, MFA failures, and privilege misuse.</li>
+          <li>Analyze authentication logs including Azure AD sign-ins, conditional access results, and risky user activity.</li>
+          <li>Perform threat hunting using KQL across identity, endpoint, and network telemetry.</li>
+          <li>Investigate endpoint activity using SentinelOne Deep Visibility with focus on credential access and persistence.</li>
+          <li>Support incident response by validating identity-related threats and recommending remediation actions.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Sentinel</span><span class="tag">KQL</span><span class="tag">SentinelOne</span>
+          <span class="tag">Azure AD</span><span class="tag">Threat Hunting</span>
+        </div>
+      </div>
+      <div class="exp-panel" id="tab-yaseen">
+        <div class="exp-title">Founder <em>@ Yaseen Enterprise</em></div>
+        <div class="exp-date">2024 — Present &nbsp;·&nbsp; Phoenix, AZ</div>
+        <ul class="exp-list">
+          <li>Founded and leading development of ARIA, an autonomous SOC pipeline for SMBs that automates threat detection, triage, and response end-to-end.</li>
+          <li>Architected Microsoft Sentinel polling and alert enrichment pipeline with AI-powered triage logic, reducing manual analyst workload.</li>
+          <li>Integrated Microsoft Defender API for automated VM isolation on confirmed threat events.</li>
+          <li>Mapped detection coverage to MITRE ATT&amp;CK and aligned program framework to NIST CSF 2.0.</li>
+          <li>Incorporated OTX AlienVault and CISA KEV for real-time threat intelligence enrichment and Telegram alerting.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">MS Sentinel</span><span class="tag">Azure</span>
+          <span class="tag">MITRE ATT&amp;CK</span><span class="tag">NIST CSF 2.0</span><span class="tag">Defender API</span>
+        </div>
+      </div>
+      <div class="exp-panel" id="tab-cyber">
+        <div class="exp-title">Security Analyst <em>@ The Cyber Range</em></div>
+        <div class="exp-date">2023 — 2024 &nbsp;·&nbsp; Remote</div>
+        <ul class="exp-list">
+          <li>Built an agentic AI SOC system for automated alert triage and incident response workflows.</li>
+          <li>Conducted threat hunting operations targeting TOR network traffic, brute-force login attempts, and malware infections via fake installers.</li>
+          <li>Developed KQL detection rules in Microsoft Sentinel for fileless malware and PowerShell-based attacks.</li>
+          <li>Managed end-to-end vulnerability scanning pipeline with prioritization and remediation tracking using Tenable and Azure.</li>
+          <li>Documented full kill chains and IOC sets for multiple threat scenarios against the MITRE ATT&amp;CK framework.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">KQL</span><span class="tag">Threat Hunting</span><span class="tag">Sentinel</span>
+          <span class="tag">MITRE ATT&amp;CK</span><span class="tag">Splunk</span><span class="tag">Vuln Mgmt</span>
+        </div>
+      </div>
+      <div class="exp-panel" id="tab-free">
+        <div class="exp-title">Developer <em>@ Freelance</em></div>
+        <div class="exp-date">2024 — Present &nbsp;·&nbsp; Remote</div>
+        <ul class="exp-list">
+          <li>Built and deployed bbmcleaningaz.com — production Next.js site for a Phoenix commercial cleaning company, live on Vercel with Resend-powered contact form.</li>
+          <li>Developed Tote4Rent, a local rental platform with booking management and inventory tracking built on Next.js, React, and TypeScript.</li>
+          <li>Designed and implemented full-stack solutions from UI through deployment, managing client relationships end-to-end.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">React</span><span class="tag">TypeScript</span>
+          <span class="tag">Vercel</span><span class="tag">Resend</span>
+        </div>
+      </div>
+    </div>
+    <div class="exp-resume-row fi">
+      <button class="btn" onclick="openResume()">view full resume ↗</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head fi"><span class="sl">/</span> projects</div>
+
+    <!-- Featured -->
+    <div class="feat fi">
+      <div class="feat-lbl">★ FEATURED PROJECT</div>
+      <div class="feat-inner">
+        <div>
+          <div class="feat-name"><em>ARIA</em> — AI-Powered SOC Analyst</div>
+          <div class="feat-sub">// autonomous-soc-pipeline.py</div>
+          <p class="feat-desc">Autonomous SOC analyst for SMBs. Polls Microsoft Sentinel for alerts, applies AI triage, maps threats to MITRE ATT&amp;CK, sends Telegram alerts, enriches with OTX AlienVault + CISA KEV threat intel, and automates Microsoft Defender VM isolation. NIST CSF 2.0 compliant.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">MS Sentinel</span><span class="tag">Azure</span>
+            <span class="tag">MITRE ATT&amp;CK</span><span class="tag">Telegram API</span>
+            <span class="tag">OTX AlienVault</span><span class="tag">NIST CSF 2.0</span>
+          </div>
+          <div style="margin-top:1.4rem">
+            <a href="https://github.com/abdullaah019/aria-soc-pipeline" target="_blank" rel="noopener" class="btn">view on github →</a>
+          </div>
+        </div>
+        <div class="term">
+          <div class="term-line"><span class="t-prompt">aria@soc:~$</span><span class="t-cmd">python aria.py --start</span></div>
+          <div style="margin-top:.4rem">
+            <div class="term-line"><span class="t-ok">[✓] Sentinel polling active</span></div>
+            <div class="term-line"><span class="t-ok">[✓] AI triage engine loaded</span></div>
+            <div class="term-line"><span class="t-ok">[✓] MITRE ATT&amp;CK mapped</span></div>
+            <div class="term-line"><span class="t-ok">[✓] OTX + CISA KEV threat intel</span></div>
+            <div class="term-line"><span class="t-ok">[✓] Defender API connected</span></div>
+          </div>
+          <div style="margin-top:.6rem">
+            <div class="term-line"><span style="color:var(--accent)">[!] T1059.001 — PowerShell Execution</span></div>
+            <div class="term-line" style="padding-left:1.2rem"><span class="t-warn">Severity: HIGH · Auto-isolating VM...</span></div>
+            <div class="term-line" style="padding-left:1.2rem"><span class="t-dim">Telegram alert → @soc_alerts ✓</span></div>
+          </div>
+          <div style="margin-top:.6rem" class="term-line"><span class="t-prompt">aria@soc:~$</span><span class="t-ok" style="animation:blink 1.1s step-start infinite">█</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar fi">
+      <button class="filt on" data-filter="all">all</button>
+      <button class="filt" data-filter="security">security</button>
+      <button class="filt" data-filter="dev">dev</button>
+      <button class="filt" data-filter="data">data</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="proj-grid fi" id="projGrid">
+
+      <a href="https://github.com/abdullaah019/Kubernetes-Homelab" target="_blank" rel="noopener" class="pc" data-cat="security">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Kubernetes Homelab</div>
+        <div class="pc-desc">Production-grade K8s cluster on Proxmox running K3S across 3 VMs. GitOps-managed via Flux CD with Cilium CNI networking, Grafana/Prometheus monitoring, CloudNativePG, Nginx ingress, and self-hosted Forgejo and Uptime Kuma.</div>
+        <div class="pc-tags"><span class="pc-tag">K3S</span> <span class="pc-tag">Flux CD</span> <span class="pc-tag">Proxmox</span> <span class="pc-tag">Cilium</span> <span class="pc-tag">Grafana</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/threat-hunting-scenario-tor" target="_blank" rel="noopener" class="pc" data-cat="security">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Threat Hunt: TOR Traffic</div>
+        <div class="pc-desc">Threat hunt report on unauthorized TOR browser installation and usage on a corporate Azure VM. KQL queries across DeviceFileEvents, DeviceProcessEvents, and DeviceNetworkEvents confirm silent install, browser launch, and connections to TOR entry nodes. Device isolated as response.</div>
+        <div class="pc-tags"><span class="pc-tag">KQL</span> <span class="pc-tag">Defender for Endpoint</span> <span class="pc-tag">Microsoft Azure</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/PowerShell-Suspicious-Web-Request-Detection-Lab" target="_blank" rel="noopener" class="pc" data-cat="security">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">PowerShell Invoke-WebRequest Detection</div>
+        <div class="pc-desc">End-to-end detection lab for PowerShell Invoke-WebRequest abuse. Builds a Sentinel scheduled analytics rule, simulates the attack (port scanner, EICAR, data exfiltration, ransomware scripts), then works the incident through containment and eradication.</div>
+        <div class="pc-tags"><span class="pc-tag">Microsoft Sentinel</span> <span class="pc-tag">KQL</span> <span class="pc-tag">Defender for Endpoint</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/Malware-Infection-via-Fake-Software-Installer" target="_blank" rel="noopener" class="pc" data-cat="security">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Threat Hunt: Fake VLC Installer Malware</div>
+        <div class="pc-desc">Threat hunt for a trojanized VLC installer dropping a persistent payload. KQL queries across Defender XDR DeviceFileEvents, ProcessEvents, NetworkEvents, and RegistryEvents detect the download, dropper execution, Run key persistence, C2 beaconing on port 8080, and .tmp data staging.</div>
+        <div class="pc-tags"><span class="pc-tag">KQL</span> <span class="pc-tag">Defender XDR</span> <span class="pc-tag">MITRE ATT&amp;CK</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/Brute-Force-Attempt-Detection" target="_blank" rel="noopener" class="pc" data-cat="security">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Brute Force Detection Lab</div>
+        <div class="pc-desc">Sentinel scheduled analytics rule detecting 10+ failed logins per IP within 5 hours using DeviceLogonEvents. Incident response covers confirmed credential compromise across 4 Azure VMs, MDE isolation, NSG hardening to block public RDP, MFA enforcement, and Azure Bastion recommendation. MITRE T1110.</div>
+        <div class="pc-tags"><span class="pc-tag">KQL</span> <span class="pc-tag">Microsoft Sentinel</span> <span class="pc-tag">Defender for Endpoint</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/vulnerability-management-program" target="_blank" rel="noopener" class="pc" data-cat="security">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Vulnerability Management Program</div>
+        <div class="pc-desc">Full VM program lifecycle from policy draft and stakeholder buy-in to remediation completion. Tenable credentialed scans on Azure VMs, four PowerShell remediation rounds (Wireshark removal, insecure ciphers/protocols, guest account hardening, Windows updates), achieving an 80% reduction in total vulnerabilities.</div>
+        <div class="pc-tags"><span class="pc-tag">Tenable</span> <span class="pc-tag">Azure VMs</span> <span class="pc-tag">PowerShell</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/yaseen-copy" target="_blank" rel="noopener" class="pc" data-cat="dev">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Yaseen Copy</div>
+        <div class="pc-desc">Cybersecurity ghostwriting subscription service. Tiered pricing ($750–$2,500/mo) with Stripe checkout, services showcase, FAQ accordion, and book-a-call form with Calendly integration.</div>
+        <div class="pc-tags"><span class="pc-tag">Next.js 14</span> <span class="pc-tag">TypeScript</span> <span class="pc-tag">Tailwind</span> <span class="pc-tag">Stripe</span></div>
+      </a>
+
+      <a href="https://bbmcleaningaz.com" target="_blank" rel="noopener" class="pc" data-cat="dev">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">BBM Cleaning Website</div>
+        <div class="pc-desc">Production Next.js site for a Phoenix commercial cleaning company. Vercel deploy, Resend contact form.</div>
+        <div class="pc-tags"><span class="pc-tag">Next.js</span> <span class="pc-tag">Vercel</span> <span class="pc-tag">Resend</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/tote4rent" target="_blank" rel="noopener" class="pc" data-cat="dev">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Tote4Rent</div>
+        <div class="pc-desc">Moving tote rental service for Phoenix, AZ and surrounding metro cities. SEO-optimized city landing pages for 10+ AZ cities, pricing tiers, FAQ, and contact. Free delivery and pickup within the Phoenix metro area.</div>
+        <div class="pc-tags"><span class="pc-tag">Next.js</span> <span class="pc-tag">TypeScript</span> <span class="pc-tag">Tailwind CSS</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/SplunkInvestigation" target="_blank" rel="noopener" class="pc" data-cat="data">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Splunk Investigations Series</div>
+        <div class="pc-desc">4-part Security Blue Team lab series using Splunk to investigate the BOTS v1 dataset. Labs cover a brute-force attack against imreallynotbatman.com, web scanner identification, OSINT, and endpoint investigation using progressively complex SPL queries.</div>
+        <div class="pc-tags"><span class="pc-tag">Splunk</span> <span class="pc-tag">SPL</span> <span class="pc-tag">BOTS v1</span></div>
+      </a>
+
+      <a href="https://github.com/abdullaah019/Bike_Sales_Data" target="_blank" rel="noopener" class="pc" data-cat="data">
+        <div class="pc-top"><span class="pc-ico">⬡</span><span class="pc-ext">↗</span></div>
+        <div class="pc-name">Bike Sales Data Analysis</div>
+        <div class="pc-desc">Bike sales dataset analysis project. The repository contains a single Excel workbook with the sales dataset.</div>
+        <div class="pc-tags"><span class="pc-tag">Excel</span> <span class="pc-tag">Data Analysis</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FITNESS -->
+<section id="fitness">
+  <div class="wrap">
+    <div class="sec-head fi"><span class="sl">/</span> daily non-negotiable</div>
+    <div class="feat fi">
+      <div class="feat-lbl">// fitness</div>
+      <div class="feat-name">Hit the gym.<br>At least 3 days a week.</div>
+      <p class="feat-desc" style="margin-top:.75rem">Built the system around it. You can too.</p>
+      <div style="margin-top:1.4rem"><a href="#" class="btn">learn more →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head fi"><span class="sl">/</span> contact</div>
+    <div class="contact-grid fi">
+      <div>
+        <div class="contact-hed">Let's build something <em>secure</em>.</div>
+        <p class="contact-body">I'm open to collaborations, consulting, and conversations about cybersecurity, AI-powered detection, or building products. If you're an SMB looking to level up your security posture — or just want to talk shop — reach out.</p>
+        <div class="contact-note">// response time: &lt; 24h</div>
+      </div>
+      <div class="clink-list">
+        <a href="mailto:abdullaahyaseen@gmail.com" class="clink">
+          <span class="clink-num">01</span>
+          <div class="clink-info">
+            <div class="clink-lbl">// EMAIL</div>
+            <div class="clink-val">abdullaahyaseen@gmail.com</div>
+          </div>
+          <span class="clink-arr">→</span>
+        </a>
+        <a href="https://github.com/abdullaah019" target="_blank" rel="noopener" class="clink">
+          <span class="clink-num">02</span>
+          <div class="clink-info">
+            <div class="clink-lbl">// GITHUB</div>
+            <div class="clink-val">github.com/abdullaah019</div>
+          </div>
+          <span class="clink-arr">→</span>
+        </a>
+        <a href="https://linkedin.com/in/abdullaahyaseen" target="_blank" rel="noopener" class="clink">
+          <span class="clink-num">03</span>
+          <div class="clink-info">
+            <div class="clink-lbl">// LINKEDIN</div>
+            <div class="clink-val">linkedin.com/in/abdullaahyaseen</div>
+          </div>
+          <span class="clink-arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-copy">© 2025 <em>Abdullaah Yaseen</em>. All rights reserved.</div>
+    <div class="foot-made">built with <em>♥</em> + too much coffee</div>
+  </div>
+</footer>
+
+<script>
+// ── DOT MATRIX PORTRAIT ──
+(function(){
+  const CELL=7,DOT_MAX=2.5;
+  const COLS=48,ROWS=64;
+
+  const canvas=document.getElementById('dotMatrix');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=COLS*CELL*dpr; canvas.height=ROWS*CELL*dpr;
+  canvas.style.width=COLS*CELL+'px'; canvas.style.height=ROWS*CELL+'px';
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+
+  ctx.fillStyle='#111111';
+  ctx.fillRect(0,0,COLS*CELL,ROWS*CELL);
+
+  const off=document.createElement('canvas');
+  off.width=COLS; off.height=ROWS;
+  const octx=off.getContext('2d');
+
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=function(){
+    octx.drawImage(img,0,0,COLS,ROWS);
+    const px=octx.getImageData(0,0,COLS,ROWS).data;
+
+    const dots=[];
+    for(let r=0;r<ROWS;r++){
+      for(let c=0;c<COLS;c++){
+        const i=(r*COLS+c)*4;
+        const raw=(0.299*px[i]+0.587*px[i+1]+0.114*px[i+2])/255;
+        const lum=Math.pow(raw,0.65);
+        dots.push({x:c*CELL+CELL/2,y:r*CELL+CELL/2,lum});
+      }
+    }
+
+    const order=[...Array(dots.length).keys()].sort(()=>Math.random()-0.5);
+    let idx=0,startTime=null;
+    const DURATION=1400;
+
+    function tick(ts){
+      if(!startTime)startTime=ts;
+      const progress=Math.min((ts-startTime)/DURATION,1);
+      const target=Math.floor(progress*order.length);
+      while(idx<target){
+        const d=dots[order[idx++]];
+        if(d.lum<0.05)continue;
+        const r=DOT_MAX*(0.2+d.lum*0.8);
+        const alpha=0.5+d.lum*0.5;
+        ctx.beginPath();
+        ctx.arc(d.x,d.y,r,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,102,0,'+alpha.toFixed(2)+')';
+        ctx.fill();
+      }
+      if(idx<order.length)requestAnimationFrame(tick);
+    }
+    setTimeout(()=>requestAnimationFrame(tick),200);
+  };
+  img.src='./Profile_Picture__1_.png';
+})();
+// ── MOBILE NAV ──
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mobMenu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+});
+function closeMenu() {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+}
+
+// ── EXPERIENCE TABS ──
+document.querySelectorAll('.exp-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('on'));
+    document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('on'));
+    tab.classList.add('on');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('on');
+  });
+});
+
+// ── PROJECT FILTER ──
+document.querySelectorAll('.filt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const cat = btn.dataset.filter;
+    document.querySelectorAll('.pc').forEach(card => {
+      card.classList.toggle('hide', cat !== 'all' && card.dataset.cat !== cat);
+    });
+  });
+});
+
+// ── SCROLL FADE-IN ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+// ── RESUME POPUP ──
+function openResume() {
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abdullaah Yaseen — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;color:#e0e0e0;font-family:'Inter',sans-serif;padding:3rem 2rem;line-height:1.6}
+.page{max-width:800px;margin:0 auto}
+.r-head{border-bottom:2px solid #ff6600;padding-bottom:1.4rem;margin-bottom:2.2rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.r-name{font-size:1.9rem;font-weight:700;color:#e0e0e0}
+.r-name span{color:#ff6600}
+.r-contact{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:#888;line-height:1.9;text-align:right}
+.r-contact a{color:#888;text-decoration:none}
+.r-contact a:hover{color:#ff6600}
+.r-print{font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.3rem .8rem;border:1px solid #ff6600;background:transparent;color:#ff6600;cursor:pointer;transition:all .2s;margin-bottom:.5rem}
+.r-print:hover{background:#ff6600;color:#111}
+.r-sec{margin-bottom:2.2rem}
+.r-sec-title{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:#ff6600;letter-spacing:2px;border-bottom:1px solid rgba(255,102,0,.22);padding-bottom:.5rem;margin-bottom:1.2rem}
+.r-job{margin-bottom:1.5rem;padding-left:.9rem;border-left:2px solid rgba(255,102,0,.28)}
+.r-job:last-child{margin-bottom:0}
+.r-job-title{font-size:.94rem;font-weight:600;color:#e0e0e0}
+.r-job-title em{color:#ff6600;font-style:normal}
+.r-job-meta{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:#888;margin:.18rem 0 .55rem;letter-spacing:.3px}
+.r-job ul{list-style:none}
+.r-job li{font-size:.85rem;color:#888;line-height:1.65;padding-left:.9rem;position:relative;margin-bottom:.2rem}
+.r-job li::before{content:'▸';color:#ff6600;position:absolute;left:0;font-size:.72rem;top:.18rem}
+.r-two{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.r-cert-list{list-style:none}
+.r-cert{display:flex;align-items:baseline;gap:.5rem;font-size:.86rem;color:#888;margin-bottom:.5rem}
+.r-cert::before{content:'◈';color:#ff6600;font-size:.65rem;flex-shrink:0}
+.r-badge{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:#666;border:1px solid rgba(255,102,0,.18);padding:.06rem .32rem;margin-left:.3rem;letter-spacing:.4px;opacity:.7}
+.r-skills{font-family:'Share Tech Mono',monospace;font-size:.77rem;color:#888;line-height:2}
+@media print{
+  body{background:#fff;color:#111;padding:1.2rem}
+  .r-print{display:none}
+  .r-name{color:#111}.r-name span,.r-sec-title,.r-job-title em,.r-cert::before,.r-job li::before{color:#cc5200}
+  .r-job{border-left-color:rgba(204,82,0,.35)}
+  .r-head{border-bottom-color:#cc5200}
+  .r-contact,.r-job-meta,.r-cert,.r-job li,.r-skills{color:#444}
+}
+@media(max-width:600px){.r-two{grid-template-columns:1fr}.r-head{flex-direction:column;align-items:flex-start}.r-contact{text-align:left}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="r-head">
+    <div>
+      <div class="r-name">Abdullaah <span>Yaseen</span></div>
+    </div>
+    <div class="r-contact">
+      <button class="r-print" onclick="window.print()">print / save PDF</button><br>
+      abdullaahyaseen@gmail.com &nbsp;·&nbsp; Phoenix, AZ<br>
+      github.com/abdullaah019 &nbsp;·&nbsp; abdullaahyaseen.com
+    </div>
+  </div>
+
+  <div class="r-sec">
+    <div class="r-sec-title">// EXPERIENCE</div>
+
+    <div class="r-job">
+      <div class="r-job-title">SOC Analyst <em>@ CISO Global</em></div>
+      <div class="r-job-meta">March 2026 — Present &nbsp;·&nbsp; Scottsdale, AZ</div>
+      <ul>
+        <li>Investigate identity-based alerts using Microsoft Sentinel</li>
+        <li>Analyze authentication logs including Azure AD sign-ins and conditional access</li>
+        <li>Perform threat hunting using KQL across identity, endpoint, and network telemetry</li>
+        <li>Investigate endpoint activity using SentinelOne Deep Visibility</li>
+        <li>Support incident response by validating identity-related threats</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job-title">Tier 1 Engineer <em>@ Magna5</em></div>
+      <div class="r-job-meta">March 2025 — March 2026 &nbsp;·&nbsp; Phoenix, AZ</div>
+      <ul>
+        <li>Investigated security incidents using Microsoft Sentinel, Defender XDR, and SentinelOne</li>
+        <li>Performed IAM tasks including RBAC updates and MFA configuration in Microsoft 365 and Azure AD</li>
+        <li>Analyzed phishing attacks and credential theft attempts</li>
+        <li>Used PowerShell to automate user access reviews and remediation tasks</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job-title">SOC Analyst <em>@ TBConsulting (TBC)</em></div>
+      <div class="r-job-meta">March 2024 — March 2025 &nbsp;·&nbsp; Phoenix, AZ</div>
+      <ul>
+        <li>Monitored and analyzed security alerts using Splunk and Microsoft Sentinel across 1,000+ endpoints</li>
+        <li>Investigated unauthorized access, lateral movement, and account misuse</li>
+        <li>Built KQL queries to detect login anomalies and privilege escalation patterns</li>
+        <li>Managed incidents in ServiceNow with focus on identity-related threats</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job-title">Cybersecurity Intern <em>@ Log(n) Pacific</em></div>
+      <div class="r-job-meta">January 2025 — April 2025 &nbsp;·&nbsp; Remote</div>
+      <ul>
+        <li>Reduced critical vulnerabilities using Tenable and system hardening</li>
+        <li>Built Sentinel dashboards to detect brute force attacks and login anomalies</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="r-two">
+    <div>
+      <div class="r-sec">
+        <div class="r-sec-title">// CERTIFICATIONS</div>
+        <ul class="r-cert-list">
+          <li class="r-cert">CompTIA Security+</li>
+          <li class="r-cert">CySA+</li>
+          <li class="r-cert">Microsoft AZ-500: Azure Security Engineer Associate</li>
+          <li class="r-cert">SC-300: Microsoft Identity and Access Administrator</li>
+          <li class="r-cert">HashiCorp Terraform Associate <span class="r-badge">IN PROGRESS</span></li>
+          <li class="r-cert">CISSP <span class="r-badge">IN PROGRESS</span></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="r-sec">
+        <div class="r-sec-title">// SKILLS</div>
+        <div class="r-skills">
+          Microsoft Sentinel &nbsp;·&nbsp; Splunk<br>
+          SentinelOne &nbsp;·&nbsp; Defender for Endpoint<br>
+          CrowdStrike &nbsp;·&nbsp; KQL &nbsp;·&nbsp; PowerShell<br>
+          MITRE ATT&amp;CK &nbsp;·&nbsp; NIST 800-61<br>
+          ServiceNow &nbsp;·&nbsp; Jira &nbsp;·&nbsp; Wireshark<br>
+          Azure AD &nbsp;·&nbsp; Microsoft 365 &nbsp;·&nbsp; Terraform
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>`);
+  w.document.close();
+}
+
+// ── NAV ACTIVE HIGHLIGHT ──
+const secs = document.querySelectorAll('section[id]');
+const navA = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  navA.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--accent)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
